@@ -1,107 +1,149 @@
-/* Fantasy-Themed UI for Guild of Chores */
-body {
+/* Existing styles (scroll background, guild title, etc.) */
+body, html {
   margin: 0;
-  font-family: 'Papyrus', 'Georgia', serif;
-  background: url('https://i.imgur.com/jQ6P4Km.png') repeat; /* Fantasy parchment */
-  color: #3b2f1e;
+  padding: 0;
+  font-family: 'Cinzel', serif;
+  background: #1a1a1a;
+  color: #f0e6c8;
 }
 
 .scroll-bg {
-  background: url('https://i.imgur.com/qm4DYmP.png') no-repeat center center;
+  background: url('/scroll-bg.jpg') no-repeat center center fixed;
   background-size: cover;
-  padding: 2em;
   min-height: 100vh;
+  padding: 40px 0;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
 .container {
-  background-color: rgba(255, 248, 220, 0.95);
-  border: 8px solid #c2aa7d;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
-  padding: 2em;
-  max-width: 800px;
-  width: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  border: 4px solid #d3b66b;
+  border-radius: 24px;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 24px rgba(0,0,0,0.7);
 }
 
 .guild-title {
-  font-size: 2.5em;
   text-align: center;
-  margin-bottom: 0.5em;
-  font-weight: bold;
-  color: #5b3e1d;
+  font-size: 2.5em;
+  color: #ffe78f;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px #000;
 }
 
 input, select, button {
-  font-size: 1em;
-  padding: 0.6em;
-  margin: 0.4em 0;
-  border-radius: 8px;
-  border: 2px solid #a3835c;
   width: 100%;
-  box-sizing: border-box;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1em;
+  font-family: inherit;
 }
 
 button {
-  background: linear-gradient(to bottom, #d2b48c, #a67c52);
-  color: #fff;
+  background-color: #d3b66b;
+  color: #000;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.2s ease;
 }
 
 button:hover {
-  background: linear-gradient(to bottom, #a67c52, #825c3b);
+  background-color: #ffe78f;
 }
 
-h2, h3 {
-  margin-top: 1em;
-  text-align: center;
-  color: #4b3621;
+form {
+  margin-bottom: 24px;
 }
 
 ul, ol {
-  list-style-type: none;
-  padding: 0;
-  margin: 0.5em 0;
+  padding-left: 20px;
 }
 
-ul li, ol li {
-  background: #fff9e6;
-  padding: 0.5em;
-  border: 1px solid #d4b48c;
-  margin: 0.4em 0;
-  border-radius: 6px;
+li {
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 8px;
+  border-radius: 8px;
 }
 
-#auth, #app form {
-  margin-bottom: 1em;
+/* Avatar + Stats Card */
+.avatar-card {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #d3b66b;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  gap: 20px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-#questFeed li {
-  font-style: italic;
-  color: #5b4b3b;
+.avatar-card img {
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  border: 2px solid #fff3c2;
+  background-color: #000;
+  object-fit: cover;
 }
 
-@media (max-width: 600px) {
-  .container {
-    padding: 1em;
-  }
-  .guild-title {
-    font-size: 1.8em;
-  }
+.avatar-card .stats {
+  color: #f0e6c8;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  /* Fallback color if image fails to load */
-  background-color: #f3efe0;
-  /* Full-screen background image: a subtle parchment or fantasy backdrop */
-  background: url('https://i.imgur.com/jQ6P4Km.png') repeat; /* or your own image */
-  background-size: cover;
-  background-attachment: fixed;
+/* Badges Row */
+#badges.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+#badges img {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  border: 2px solid #d3b66b;
+  background-color: #222;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+
+#badges img:hover {
+  transform: scale(1.05);
+}
+
+/* Notifications */
+#notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ffe78f;
+  color: #000;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  z-index: 1000;
+  display: none;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.show-notification {
+  display: block;
+  animation: fadeInOut 4s ease forwards;
 }
