@@ -2,64 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Guild of Chores</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="scroll-bg">
-    <div class="container">
-      <h1 class="guild-title">🛡️ Guild of Chores</h1>
-
-      <!-- Auth Section -->
-      <div id="auth">
-        <input id="username" placeholder="Username" type="text" />
-        <input id="email" placeholder="Email" type="email" />
-        <input id="password" placeholder="Password" type="password" />
-        <button id="signup">Sign Up</button>
-        <button id="login">Log In</button>
-      </div>
-
-      <!-- Main App -->
-      <div id="app" style="display:none;">
-        <h2>Welcome, <span id="usernameDisplay"></span>!</h2>
-        <h3>Level: <span id="level">1</span> | XP: <span id="xp">0</span> | Streak: <span id="streak">0</span> days</h3>
-
-        <!-- Daily Quest Form -->
-        <form id="questForm">
-          <input id="questName" placeholder="Quest Name" required />
-          <select id="difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-          <button type="submit">Complete Daily Quest</button>
-        </form>
-
-        <!-- Create Public Quest for Others -->
-        <form id="customQuestForm">
-          <h3>Create a Quest for Others:</h3>
-          <input id="customQuestName" placeholder="Quest Title" required />
-          <input id="customQuestXP" placeholder="XP Reward (number)" type="number" required />
-          <input id="customQuestReward" placeholder="Reward Description (e.g. 1 cookie)" required />
-          <button type="submit">Post Quest</button>
-        </form>
-
-        <h3>🧾 Available Quests:</h3>
-        <ul id="publicQuests"></ul>
-
-        <h3>📜 Quest Feed</h3>
-        <ul id="questFeed" style="max-height: 300px; overflow-y: auto;"></ul>
-
-        <h3>🏆 Leaderboard</h3>
-        <ol id="leaderboard"></ol>
-
-        <button id="logout">Log Out</button>
-      </div>
-    </div>
+  <div id="auth">
+    <h1>⚔️ Guild of Chores</h1>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="signup">Sign Up</button>
+    <button id="login">Login</button>
   </div>
 
-  <!-- Load script after DOM elements exist -->
+  <div id="app" style="display: none">
+    <header>
+      <img id="avatarImage" src="" alt="avatar" />
+      <h2>Welcome, <span id="usernameDisplay"></span>!</h2>
+      <p>Level: <span id="level"></span> | XP: <span id="xp"></span> | Streak: <span id="streak"></span> days</p>
+      <button id="logout">Logout</button>
+    </header>
+
+    <section id="dailyQuest">
+      <h3>Complete a Daily Quest</h3>
+      <form id="questForm">
+        <input type="text" id="questName" placeholder="Quest Name" required />
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <button type="submit">Complete Daily Quest</button>
+      </form>
+    </section>
+
+    <section>
+      <h3>Create a Quest for Others</h3>
+      <form id="customQuestForm">
+        <input type="text" id="customQuestName" placeholder="Quest Title" required />
+        <input type="number" id="customQuestXP" placeholder="XP Reward" required />
+        <input type="text" id="customQuestReward" placeholder="Reward Description" required />
+        <button type="submit">Post Quest</button>
+      </form>
+    </section>
+
+    <section>
+      <h3>📖 Available Quests:</h3>
+      <ul id="publicQuests"></ul>
+    </section>
+
+    <section>
+      <h3>📃 Quest Feed:</h3>
+      <ul id="questFeed"></ul>
+    </section>
+
+    <section>
+      <h3>🌟 Leaderboard:</h3>
+      <ol id="leaderboard"></ol>
+    </section>
+  </div>
+
+  <div id="notification"></div>
+
   <script type="module" src="script.js"></script>
 </body>
 </html>
