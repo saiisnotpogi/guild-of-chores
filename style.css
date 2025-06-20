@@ -93,3 +93,15 @@ ul li, ol li {
     font-size: 1.8em;
   }
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  /* Fallback color if image fails to load */
+  background-color: #f3efe0;
+  /* Full-screen background image: a subtle parchment or fantasy backdrop */
+  background: url('https://i.imgur.com/jQ6P4Km.png') repeat; /* or your own image */
+  background-size: cover;
+  background-attachment: fixed;
+}
