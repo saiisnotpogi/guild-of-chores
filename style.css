@@ -1,108 +1,72 @@
-/* 1. Ensure full viewport background */
-html, body {
+/* style.css */
+body {
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  height: 100%;
-  background-color: #f3efe0;
-  background: url('https://i.imgur.com/jQ6P4Km.png') repeat;
+  background: url('/scroll-bg.png') no-repeat center center fixed;
   background-size: cover;
-  background-attachment: fixed;
-  color: #3b2f1e;
-  font-family: 'Papyrus', 'Georgia', serif;
+  color: #3e2f1c;
 }
 
-/* 2. Scroll-bg covers viewport and centers container */
-.scroll-bg {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2em 0;
-  /* Optional overlay + texture
-     Remove or adjust opacity as desired */
-  background: rgba(0,0,0,0.1) url('https://i.imgur.com/qm4DYmP.png') no-repeat center center;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-/* 3. Opaque parchment container */
-.container {
-  background-color: rgba(255, 248, 220, 0.97);
-  border: 8px solid #c2aa7d;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
-  padding: 2em;
-  max-width: 800px;
-  width: 90%;
-  margin-bottom: 2em;
-}
-
-/* Title styling */
-.guild-title {
-  font-size: 2.5em;
+h1, h2, h3 {
   text-align: center;
-  margin-bottom: 0.5em;
-  font-weight: bold;
-  color: #5b3e1d;
+  font-family: 'Cinzel', serif;
 }
 
-/* Inputs/buttons */
+header {
+  background: #f5e6c5;
+  padding: 20px;
+  border-bottom: 4px solid #a57c46;
+  text-align: center;
+}
+
+#auth, #app {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #fff9ed;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
 input, select, button {
-  font-size: 1em;
-  padding: 0.6em;
-  margin: 0.4em 0;
-  border-radius: 8px;
-  border: 2px solid #a3835c;
   width: 100%;
-  box-sizing: border-box;
+  margin: 6px 0;
+  padding: 10px;
+  border: 2px solid #d1b38c;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
 button {
-  background: linear-gradient(to bottom, #d2b48c, #a67c52);
-  color: #fff;
-  font-weight: bold;
+  background-color: #a57c46;
+  color: white;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background: linear-gradient(to bottom, #a67c52, #825c3b);
-}
-
-h2, h3 {
-  margin-top: 1em;
-  text-align: center;
-  color: #4b3621;
+  background-color: #875f2c;
 }
 
 ul, ol {
-  list-style-type: none;
-  padding: 0;
-  margin: 0.5em 0;
+  padding: 0 20px;
 }
 
-ul li, ol li {
-  background: #fff9e6;
-  padding: 0.5em;
-  border: 1px solid #d4b48c;
-  margin: 0.4em 0;
-  border-radius: 6px;
+#notification {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #ffebc6;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  display: none;
 }
 
-#auth, #app form {
-  margin-bottom: 1em;
-}
-
-#questFeed li {
-  font-style: italic;
-  color: #5b4b3b;
-}
-
-@media (max-width: 600px) {
-  .container {
-    padding: 1em;
-  }
-  .guild-title {
-    font-size: 1.8em;
-  }
+#avatarImage {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
