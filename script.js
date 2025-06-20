@@ -16,7 +16,8 @@ import {
   update,
   push,
   get,
-  onValue
+  onValue,
+  remove
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -67,13 +68,15 @@ function getXP(difficulty) {
   return { easy: 10, medium: 25, hard: 50 }[difficulty] || 0;
 }
 
-function updateUserData() {
+function updateUserData(proofDate = null) {
   const uid = currentUser.uid;
-  update(ref(db, `users/${uid}`), {
+  const data = {
     xp: userXP,
     streak: userStreak,
-    lastCompleted: new Date().toDateString()
-  });
+    lastCompleted: new Date().toDateString(),
+    username: currentUser.displayName
+  };
+  update(ref(db, `users/${uid}`), data);
 }
 
 function loadLeaderboard() {
@@ -81,7 +84,7 @@ function loadLeaderboard() {
     const data = [];
     snapshot.forEach(child => {
       const val = child.val();
-      if (val.username) {
+      if (val.username != null) {
         data.push({ username: val.username, xp: val.xp || 0 });
       }
     });
@@ -99,9 +102,12 @@ function loadQuestFeed() {
   onValue(ref(db, "feed"), snapshot => {
     questFeed.innerHTML = "";
     const data = snapshot.val() || {};
-    Object.values(data).slice(-10).reverse().forEach(entry => {
+    // Show last 10 entries
+    const entries = Object.values(data);
+    entries.slice(-10).reverse().forEach(entry => {
       const li = document.createElement("li");
-      li.textContent = `${entry.username} completed "${entry.quest}" (+${entry.xp} XP)`;
+      const proofText = entry.proof ? ` Proof: ${entry.proof}` : '';
+      li.textContent = `${entry.username} completed "${entry.quest}" (+${entry.xp} XP).${proofText}`;
       questFeed.appendChild(li);
     });
   });
@@ -114,24 +120,43 @@ function loadPublicQuests() {
     Object.entries(data).forEach(([key, quest]) => {
       const li = document.createElement("li");
       li.innerHTML = `
-        <strong>${quest.name}</strong> - Reward: ${quest.reward} 
-        <button onclick="acceptQuest('${key}', '${quest.name}', '${quest.reward}', '${quest.creator}')">Complete</button>
+        <strong>${quest.name}</strong> - Reward: ${quest.reward} - XP: ${quest.xp} - Creator: ${quest.creator}
+        <button data-id="${key}" data-name="${quest.name}" data-reward="${quest.reward}" data-xp="${quest.xp}" data-creator="${quest.creator}">Complete</button>
       `;
+      const btn = li.querySelector('button');
+      btn.onclick = () => acceptQuest(key, quest.name, quest.reward, quest.creator, quest.xp);
       publicQuests.appendChild(li);
     });
   });
 }
 
-window.acceptQuest = function (id, name, reward, creator) {
-  userXP += 25;
+async function acceptQuest(id, name, reward, creator, xpValue) {
+  // Prompt for proof
+  const proof = prompt(`Enter proof/description for completing "${name}":`);
+  if (proof == null || proof.trim() === '') {
+    alert('Proof is required to complete this quest.');
+    return;
+  }
+  // Remove quest from public list
+  await remove(ref(db, `publicQuests/${id}`));
+  // Update user data
+  // Update streak if daily completion
+  const today = new Date().toDateString();
+  if (today !== lastCompletedDate) {
+    userStreak += 1;
+  }
+  userXP += Number(xpValue);
   updateUserData();
+  // Push to feed
   push(ref(db, "feed"), {
     username: currentUser.displayName,
     quest: name,
-    xp: 25
+    xp: Number(xpValue),
+    proof: proof
   });
-  alert(`You completed "${name}" and earned ${reward} from ${creator}`);
-};
+  alert(`You completed "${name}"! You earned ${xpValue} XP and reward: ${reward}`);
+  loadLeaderboard();
+}
 
 signupBtn.onclick = () => {
   createUserWithEmailAndPassword(auth, email.value, password.value).then(cred => {
@@ -146,11 +171,11 @@ signupBtn.onclick = () => {
         email: email.value
       });
     });
-  }).catch(alert);
+  }).catch(err => alert(err.message));
 };
 
 loginBtn.onclick = () => {
-  signInWithEmailAndPassword(auth, email.value, password.value).catch(alert);
+  signInWithEmailAndPassword(auth, email.value, password.value).catch(err => alert(err.message));
 };
 
 logoutBtn.onclick = () => signOut(auth);
@@ -196,19 +221,25 @@ questForm.onsubmit = e => {
   push(ref(db, "feed"), {
     username: currentUser.displayName,
     quest: name,
-    xp: xpGain
+    xp: xpGain,
+    proof: "Daily quest"
   });
+  alert(`Daily quest "${name}" completed! You earned ${xpGain} XP.`);
   questForm.reset();
+  loadLeaderboard();
 };
 
 customQuestForm.onsubmit = e => {
   e.preventDefault();
   const name = document.getElementById("customQuestName").value;
+  const xpValue = document.getElementById("customQuestXP").value;
   const reward = document.getElementById("customQuestReward").value;
   push(ref(db, "publicQuests"), {
     name,
     reward,
+    xp: Number(xpValue),
     creator: currentUser.displayName
   });
+  alert(`Quest "${name}" posted for others! Reward: ${reward}, XP: ${xpValue}`);
   customQuestForm.reset();
 };
