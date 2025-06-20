@@ -7,36 +7,52 @@
   <script type="module" src="script.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>🛡️ Guild of Chores</h1>
+  <div class="scroll-bg">
+    <div class="container">
+      <h1 class="guild-title">🛡️ Guild of Chores</h1>
 
-    <!-- Auth Section -->
-    <div id="auth">
-      <input id="email" placeholder="Email" type="email" />
-      <input id="password" placeholder="Password" type="password" />
-      <button id="login">Log In</button>
-      <button id="signup">Sign Up</button>
-    </div>
+      <!-- Auth Section -->
+      <div id="auth">
+        <input id="username" placeholder="Username" type="text" />
+        <input id="email" placeholder="Email" type="email" />
+        <input id="password" placeholder="Password" type="password" />
+        <button id="signup">Sign Up</button>
+        <button id="login">Log In</button>
+      </div>
 
-    <!-- Main App -->
-    <div id="app" style="display:none;">
-      <h2>Welcome, <span id="username"></span>!</h2>
-      <h3>Level: <span id="level">1</span> | XP: <span id="xp">0</span></h3>
+      <!-- Main App -->
+      <div id="app" style="display:none;">
+        <h2>Welcome, <span id="usernameDisplay"></span>!</h2>
+        <h3>Level: <span id="level">1</span> | XP: <span id="xp">0</span> | Streak: <span id="streak">0</span> days</h3>
 
-      <form id="questForm">
-        <input id="questName" placeholder="Quest Name" required />
-        <select id="difficulty">
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-        <button type="submit">Complete Quest</button>
-      </form>
+        <form id="questForm">
+          <input id="questName" placeholder="Quest Name" required />
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+          <button type="submit">Complete Daily Quest</button>
+        </form>
 
-      <h3>🏆 Leaderboard</h3>
-      <ol id="leaderboard"></ol>
+        <form id="customQuestForm">
+          <h3>Create a Quest for Others:</h3>
+          <input id="customQuestName" placeholder="Quest Title" required />
+          <input id="customQuestReward" placeholder="Reward (e.g. 1 cookie)" required />
+          <button type="submit">Post Quest</button>
+        </form>
 
-      <button id="logout">Log Out</button>
+        <h3>📟 Available Quests:</h3>
+        <ul id="publicQuests"></ul>
+
+        <h3>📜 Quest Feed</h3>
+        <ul id="questFeed"></ul>
+
+        <h3>🏆 Leaderboard</h3>
+        <ol id="leaderboard"></ol>
+
+        <button id="logout">Log Out</button>
+      </div>
     </div>
   </div>
 </body>
