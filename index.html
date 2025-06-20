@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guild of Chores</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🛡️ Guild of Chores</h1>
+
+    <!-- Auth Section -->
+    <div id="auth">
+      <input id="email" placeholder="Email" type="email" />
+      <input id="password" placeholder="Password" type="password" />
+      <button id="login">Log In</button>
+      <button id="signup">Sign Up</button>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" style="display:none;">
+      <h2>Welcome, <span id="username"></span>!</h2>
+      <h3>Level: <span id="level">1</span> | XP: <span id="xp">0</span></h3>
+
+      <form id="questForm">
+        <input id="questName" placeholder="Quest Name" required />
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <button type="submit">Complete Quest</button>
+      </form>
+
+      <h3>🏆 Leaderboard</h3>
+      <ol id="leaderboard"></ol>
+
+      <button id="logout">Log Out</button>
+    </div>
+  </div>
+</body>
+</html>
