@@ -23,7 +23,16 @@
       <!-- Main App -->
       <div id="app" style="display:none;">
         <h2>Welcome, <span id="usernameDisplay"></span>!</h2>
-        <h3>Level: <span id="level">1</span> | XP: <span id="xp">0</span> | Streak: <span id="streak">0</span> days</h3>
+
+        <!-- Avatar + Stats -->
+        <div class="avatar-card">
+          <img id="avatarImage" src="/avatars/novice.png" alt="avatar" />
+          <div class="stats">
+            <h3>Level: <span id="level">1</span></h3>
+            <p>XP: <span id="xp">0</span></p>
+            <p>Streak: <span id="streak">0</span> days</p>
+          </div>
+        </div>
 
         <!-- Daily Quest Form -->
         <form id="questForm">
@@ -36,7 +45,7 @@
           <button type="submit">Complete Daily Quest</button>
         </form>
 
-        <!-- Create Public Quest for Others -->
+        <!-- Custom Quest Creation -->
         <form id="customQuestForm">
           <h3>Create a Quest for Others:</h3>
           <input id="customQuestName" placeholder="Quest Title" required />
@@ -54,12 +63,15 @@
         <h3>🏆 Leaderboard</h3>
         <ol id="leaderboard"></ol>
 
+        <a href="shop.html">🪙 Visit Guild Shop</a> |
+        <a href="verify.html">🧾 Review Quests</a>
+
+        <br/><br/>
         <button id="logout">Log Out</button>
       </div>
     </div>
   </div>
 
-  <!-- Load script after DOM elements exist -->
   <script type="module" src="script.js"></script>
 </body>
 </html>
