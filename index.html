@@ -25,6 +25,7 @@
         <h2>Welcome, <span id="usernameDisplay"></span>!</h2>
         <h3>Level: <span id="level">1</span> | XP: <span id="xp">0</span> | Streak: <span id="streak">0</span> days</h3>
 
+        <!-- Daily Quest Form -->
         <form id="questForm">
           <input id="questName" placeholder="Quest Name" required />
           <select id="difficulty">
@@ -35,14 +36,16 @@
           <button type="submit">Complete Daily Quest</button>
         </form>
 
+        <!-- Create Public Quest for Others -->
         <form id="customQuestForm">
           <h3>Create a Quest for Others:</h3>
           <input id="customQuestName" placeholder="Quest Title" required />
-          <input id="customQuestReward" placeholder="Reward (e.g. 1 cookie)" required />
+          <input id="customQuestXP" placeholder="XP Reward (number)" type="number" required />
+          <input id="customQuestReward" placeholder="Reward Description (e.g. 1 cookie)" required />
           <button type="submit">Post Quest</button>
         </form>
 
-        <h3>📟 Available Quests:</h3>
+        <h3>🧾 Available Quests:</h3>
         <ul id="publicQuests"></ul>
 
         <h3>📜 Quest Feed</h3>
